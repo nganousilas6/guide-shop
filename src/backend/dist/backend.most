@@ -1,0 +1,499 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Account__126475733 =
+  {
+    var balance : Amount__144762166;
+    var blocked : Bool;
+    createdAt : Timestamp__486448937;
+    var creditScore : Nat;
+    id : UserId__426295716;
+    var lastSeen : Timestamp__486448937;
+    var password : Text;
+    passwordHash : Text;
+    phone : Text;
+    promoCode : Text;
+    referredBy : ?Text;
+    var secondaryPassword : Text;
+    var secondaryPasswordHash : Text;
+    var vipLevel : VipLevel__201827115
+  };
+type Account__321851125 =
+  {
+    var balance : Amount__486019917;
+    createdAt : Timestamp__1052763289;
+    var creditScore : Nat;
+    id : UserId__326090542;
+    var lastSeen : Timestamp__1052763289;
+    passwordHash : Text;
+    phone : Text;
+    promoCode : Text;
+    referredBy : ?Text;
+    var secondaryPasswordHash : Text;
+    var vipLevel : VipLevel__144756530
+  };
+type Account__443738218 =
+  {
+    var balance : Amount__924363650;
+    var blocked : Bool;
+    createdAt : Timestamp__1028304436;
+    var creditScore : Nat;
+    id : UserId__459176989;
+    var lastSeen : Timestamp__1028304436;
+    var password : Text;
+    passwordHash : Text;
+    phone : Text;
+    promoCode : Text;
+    referredBy : ?Text;
+    var secondaryPassword : Text;
+    var secondaryPasswordHash : Text;
+    var vipLevel : VipLevel__718407856
+  };
+type Account__695028677 =
+  {
+    var balance : Amount__262402423;
+    var blocked : Bool;
+    createdAt : Timestamp__608627923;
+    var creditScore : Nat;
+    id : UserId__911210446;
+    var lastSeen : Timestamp__608627923;
+    var password : Text;
+    passwordHash : Text;
+    phone : Text;
+    promoCode : Text;
+    referredBy : ?Text;
+    var secondaryPassword : Text;
+    var secondaryPasswordHash : Text;
+    var vipLevel : VipLevel__219976885
+  };
+type Amount__144762166 = Nat;
+type Amount__262402423 = Amount__460182544;
+type Amount__460182544 = Nat;
+type Amount__474215891 = Amount__460182544;
+type Amount__486019917 = Nat;
+type Amount__712572159 = Amount__460182544;
+type Amount__924363650 = Nat;
+type AttachmentKind__347076705 = {#file; #image; #video};
+type AttachmentKind__562857108 = {#file; #image; #video};
+type AttachmentKind__754534159 = AttachmentKind__562857108;
+type AttachmentKind__987663741 = {#file; #image; #video};
+type Attachment__185705637 =
+  {blob : Blob; kind : AttachmentKind__987663741; name : Text; size : Nat};
+type Attachment__70996338 =
+  {blob : Blob; kind : AttachmentKind__347076705; name : Text; size : Nat};
+type Attachment__856804957 =
+  {
+    blob : ExternalBlob__220559234;
+    kind : AttachmentKind__754534159;
+    name : Text;
+    size : Nat
+  };
+type ChatMessage__149113622 =
+  {
+    attachment : ?Attachment__185705637;
+    body : Text;
+    createdAt : Timestamp__1028304436;
+    fromAdmin : Bool;
+    id : Nat;
+    userId : UserId__459176989
+  };
+type ChatMessage__259514027 =
+  {
+    attachment : ?Attachment__70996338;
+    body : Text;
+    createdAt : Timestamp__486448937;
+    fromAdmin : Bool;
+    id : Nat;
+    userId : UserId__426295716
+  };
+type ChatMessage__351748744 =
+  {
+    body : Text;
+    createdAt : Timestamp__1052763289;
+    fromAdmin : Bool;
+    id : Nat;
+    userId : UserId__326090542
+  };
+type ChatMessage__428288486 =
+  {
+    attachment : ?Attachment__856804957;
+    body : Text;
+    createdAt : Timestamp__1017063900;
+    fromAdmin : Bool;
+    id : Nat;
+    userId : UserId__987166220
+  };
+type CommissionEntry__1025917862 =
+  {
+    amount : Amount__924363650;
+    createdAt : Timestamp__1028304436;
+    id : Nat;
+    source : Text;
+    userId : UserId__459176989
+  };
+type CommissionEntry__1062737122 =
+  {
+    amount : Amount__144762166;
+    createdAt : Timestamp__486448937;
+    id : Nat;
+    source : Text;
+    userId : UserId__426295716
+  };
+type CommissionEntry__927671547 =
+  {
+    amount : Amount__474215891;
+    createdAt : Timestamp__581234846;
+    id : Nat;
+    source : Text;
+    userId : UserId__922228416
+  };
+type CommissionEntry__935424677 =
+  {
+    amount : Amount__486019917;
+    createdAt : Timestamp__1052763289;
+    id : Nat;
+    source : Text;
+    userId : UserId__326090542
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type ExternalBlob__220559234 = Blob;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__193197324 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accounts : Map__230067015<UserId__459176989, Account__443738218>;
+    commissions : Map__230067015<Nat, CommissionEntry__1025917862>;
+    dailyCounters : Map__230067015<Text, Nat>;
+    messages : Map__230067015<Nat, ChatMessage__149113622>;
+    nextCommissionId : {var value : Nat};
+    nextMessageId : {var value : Nat};
+    nextRecordId : {var value : Nat};
+    nextUserId : {var value : Nat};
+    nextWithdrawalId : {var value : Nat};
+    pendingRefunds : Map__230067015<UserId__459176989, Amount__924363650>;
+    phoneIndex : Map__230067015<Text, UserId__459176989>;
+    promoIndex : Map__230067015<Text, UserId__459176989>;
+    rechargeRequests : Map__230067015<UserId__459176989, Amount__924363650>;
+    sessions : Map__230067015<Principal, UserId__459176989>;
+    taskRecords : Map__230067015<Nat, TaskRecord__668419388>;
+    vipConfigs : Map__230067015<VipLevel__718407856, VipConfig__717515222>;
+    withdrawals : Map__230067015<Nat, WithdrawalRequest__115007943>
+  };
+type NewActor__732283469 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accounts : Map__230067015<UserId__426295716, Account__126475733>;
+    adminSessions : Map__230067015<Principal, Bool>;
+    commissions : Map__230067015<Nat, CommissionEntry__1062737122>;
+    dailyCounters : Map__230067015<Text, Nat>;
+    messages : Map__230067015<Nat, ChatMessage__259514027>;
+    nextCommissionId : {var value : Nat};
+    nextMessageId : {var value : Nat};
+    nextRecordId : {var value : Nat};
+    nextUserId : {var value : Nat};
+    nextWithdrawalId : {var value : Nat};
+    pendingRefunds : Map__230067015<UserId__426295716, Amount__144762166>;
+    phoneIndex : Map__230067015<Text, UserId__426295716>;
+    promoIndex : Map__230067015<Text, UserId__426295716>;
+    rechargeRequests : Map__230067015<UserId__426295716, Amount__144762166>;
+    sessions : Map__230067015<Principal, UserId__426295716>;
+    taskRecords : Map__230067015<Nat, TaskRecord__333518478>;
+    vipConfigs : Map__230067015<VipLevel__201827115, VipConfig__136217711>;
+    withdrawals : Map__230067015<Nat, WithdrawalRequest__8568610>
+  };
+type NewActor__751302591 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accounts : Map__230067015<UserId__326090542, Account__321851125>;
+    commissions : Map__230067015<Nat, CommissionEntry__935424677>;
+    dailyCounters : Map__230067015<Text, Nat>;
+    messages : Map__230067015<Nat, ChatMessage__351748744>;
+    nextCommissionId : {var value : Nat};
+    nextMessageId : {var value : Nat};
+    nextRecordId : {var value : Nat};
+    nextUserId : {var value : Nat};
+    nextWithdrawalId : {var value : Nat};
+    phoneIndex : Map__230067015<Text, UserId__326090542>;
+    promoIndex : Map__230067015<Text, UserId__326090542>;
+    sessions : Map__230067015<Principal, UserId__326090542>;
+    taskRecords : Map__230067015<Nat, TaskRecord__457997177>;
+    vipConfigs : Map__230067015<VipLevel__144756530, VipConfig__635019905>;
+    withdrawals : Map__230067015<Nat, WithdrawalRequest__286397254>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldAccount__414091107 =
+  {
+    var balance : Amount__924363650;
+    createdAt : Timestamp__1028304436;
+    var creditScore : Nat;
+    id : UserId__459176989;
+    var lastSeen : Timestamp__1028304436;
+    passwordHash : Text;
+    phone : Text;
+    promoCode : Text;
+    referredBy : ?Text;
+    var secondaryPasswordHash : Text;
+    var vipLevel : VipLevel__718407856
+  };
+type OldActor__1033119137 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accounts : Map__230067015<UserId__459176989, OldAccount__414091107>;
+    commissions : Map__230067015<Nat, CommissionEntry__1025917862>;
+    dailyCounters : Map__230067015<Text, Nat>;
+    messages : Map__230067015<Nat, OldChatMessage__736076953>;
+    nextCommissionId : {var value : Nat};
+    nextMessageId : {var value : Nat};
+    nextRecordId : {var value : Nat};
+    nextUserId : {var value : Nat};
+    nextWithdrawalId : {var value : Nat};
+    phoneIndex : Map__230067015<Text, UserId__459176989>;
+    promoIndex : Map__230067015<Text, UserId__459176989>;
+    sessions : Map__230067015<Principal, UserId__459176989>;
+    taskRecords : Map__230067015<Nat, TaskRecord__668419388>;
+    vipConfigs : Map__230067015<VipLevel__718407856, VipConfig__717515222>;
+    withdrawals : Map__230067015<Nat, WithdrawalRequest__115007943>
+  };
+type OldActor__853359044 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accounts : Map__230067015<UserId__426295716, Account__126475733>;
+    commissions : Map__230067015<Nat, CommissionEntry__1062737122>;
+    dailyCounters : Map__230067015<Text, Nat>;
+    messages : Map__230067015<Nat, ChatMessage__259514027>;
+    nextCommissionId : {var value : Nat};
+    nextMessageId : {var value : Nat};
+    nextRecordId : {var value : Nat};
+    nextUserId : {var value : Nat};
+    nextWithdrawalId : {var value : Nat};
+    pendingRefunds : Map__230067015<UserId__426295716, Amount__144762166>;
+    phoneIndex : Map__230067015<Text, UserId__426295716>;
+    promoIndex : Map__230067015<Text, UserId__426295716>;
+    rechargeRequests : Map__230067015<UserId__426295716, Amount__144762166>;
+    sessions : Map__230067015<Principal, UserId__426295716>;
+    taskRecords : Map__230067015<Nat, TaskRecord__333518478>;
+    vipConfigs : Map__230067015<VipLevel__201827115, VipConfig__136217711>;
+    withdrawals : Map__230067015<Nat, WithdrawalRequest__8568610>
+  };
+type OldChatMessage__736076953 =
+  {
+    body : Text;
+    createdAt : Timestamp__1028304436;
+    fromAdmin : Bool;
+    id : Nat;
+    userId : UserId__459176989
+  };
+type RecordStatus__242869754 = {#frozen; #soumission; #termine};
+type RecordStatus__287954424 = {#frozen; #soumission; #termine};
+type RecordStatus__31159532 = RecordStatus__965727807;
+type RecordStatus__724195443 = {#frozen; #soumission; #termine};
+type RecordStatus__965727807 = {#frozen; #soumission; #termine};
+type TaskRecord__266921937 =
+  {
+    commission : Amount__474215891;
+    createdAt : Timestamp__581234846;
+    id : Nat;
+    merchant : Text;
+    productDescription : Text;
+    var status : RecordStatus__31159532;
+    thumbnailUrl : Text;
+    totalValue : Amount__474215891;
+    userId : UserId__922228416
+  };
+type TaskRecord__333518478 =
+  {
+    commission : Amount__144762166;
+    createdAt : Timestamp__486448937;
+    id : Nat;
+    merchant : Text;
+    productDescription : Text;
+    var status : RecordStatus__724195443;
+    thumbnailUrl : Text;
+    totalValue : Amount__144762166;
+    userId : UserId__426295716
+  };
+type TaskRecord__457997177 =
+  {
+    commission : Amount__486019917;
+    createdAt : Timestamp__1052763289;
+    id : Nat;
+    merchant : Text;
+    productDescription : Text;
+    var status : RecordStatus__287954424;
+    thumbnailUrl : Text;
+    totalValue : Amount__486019917;
+    userId : UserId__326090542
+  };
+type TaskRecord__668419388 =
+  {
+    commission : Amount__924363650;
+    createdAt : Timestamp__1028304436;
+    id : Nat;
+    merchant : Text;
+    productDescription : Text;
+    var status : RecordStatus__242869754;
+    thumbnailUrl : Text;
+    totalValue : Amount__924363650;
+    userId : UserId__459176989
+  };
+type Timestamp__1017063900 = Timestamp__301639476;
+type Timestamp__1028304436 = Int;
+type Timestamp__1052763289 = Int;
+type Timestamp__301639476 = Int;
+type Timestamp__486448937 = Int;
+type Timestamp__501766206 = Timestamp__301639476;
+type Timestamp__581234846 = Timestamp__301639476;
+type Timestamp__608627923 = Timestamp__301639476;
+type UserId__158757552 = Nat;
+type UserId__326090542 = Nat;
+type UserId__360583728 = UserId__158757552;
+type UserId__426295716 = Nat;
+type UserId__459176989 = Nat;
+type UserId__911210446 = UserId__158757552;
+type UserId__922228416 = UserId__158757552;
+type UserId__987166220 = UserId__158757552;
+type UserRole__91647283 = {#admin; #guest; #user};
+type VipConfig__136217711 =
+  {commissionRate : Nat; dailyTaskQuota : Nat; level : VipLevel__201827115};
+type VipConfig__635019905 =
+  {commissionRate : Nat; dailyTaskQuota : Nat; level : VipLevel__144756530};
+type VipConfig__717515222 =
+  {commissionRate : Nat; dailyTaskQuota : Nat; level : VipLevel__718407856};
+type VipConfig__909150664 =
+  {commissionRate : Nat; dailyTaskQuota : Nat; level : VipLevel__599882296};
+type VipLevel__144756530 = {#vip0; #vip1; #vip2; #vip3};
+type VipLevel__179786454 = VipLevel__540801970;
+type VipLevel__201827115 = {#vip0; #vip1; #vip2; #vip3};
+type VipLevel__219976885 = VipLevel__179786454;
+type VipLevel__540801970 = {#vip0; #vip1; #vip2; #vip3};
+type VipLevel__599882296 = VipLevel__179786454;
+type VipLevel__718407856 = {#vip0; #vip1; #vip2; #vip3};
+type WithdrawalRequest__115007943 =
+  {
+    amount : Amount__924363650;
+    createdAt : Timestamp__1028304436;
+    id : Nat;
+    var reviewedAt : ?Timestamp__1028304436;
+    var status : WithdrawalStatus__310867799;
+    userId : UserId__459176989
+  };
+type WithdrawalRequest__286397254 =
+  {
+    amount : Amount__486019917;
+    createdAt : Timestamp__1052763289;
+    id : Nat;
+    var reviewedAt : ?Timestamp__1052763289;
+    var status : WithdrawalStatus__411853697;
+    userId : UserId__326090542
+  };
+type WithdrawalRequest__770676552 =
+  {
+    amount : Amount__712572159;
+    createdAt : Timestamp__501766206;
+    id : Nat;
+    var reviewedAt : ?Timestamp__501766206;
+    var status : WithdrawalStatus__598087654;
+    userId : UserId__360583728
+  };
+type WithdrawalRequest__8568610 =
+  {
+    amount : Amount__144762166;
+    createdAt : Timestamp__486448937;
+    id : Nat;
+    var reviewedAt : ?Timestamp__486448937;
+    var status : WithdrawalStatus__61333485;
+    userId : UserId__426295716
+  };
+type WithdrawalStatus__177126800 = {#approved; #pending; #rejected};
+type WithdrawalStatus__310867799 = {#approved; #pending; #rejected};
+type WithdrawalStatus__411853697 = {#approved; #pending; #rejected};
+type WithdrawalStatus__598087654 = WithdrawalStatus__177126800;
+type WithdrawalStatus__61333485 = {#approved; #pending; #rejected};
+{
+  "20260920_213000" : (_old : {}) -> NewActor__751302591;
+  "20260921_120000" : (old : OldActor__1033119137) -> NewActor__193197324;
+  "20260921_180000" : (old : OldActor__853359044) -> NewActor__732283469
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable accounts :
+    {
+      var root : Node__204828119<UserId__158757552, Account__695028677>;
+      var size : Nat__227979830
+    };
+  stable adminSessions :
+    {var root : Node__204828119<Principal, Bool>; var size : Nat__227979830};
+  stable commissions :
+    {
+      var root : Node__204828119<Nat, CommissionEntry__927671547>;
+      var size : Nat__227979830
+    };
+  stable dailyCounters :
+    {var root : Node__204828119<Text, Nat>; var size : Nat__227979830};
+  stable messages :
+    {
+      var root : Node__204828119<Nat, ChatMessage__428288486>;
+      var size : Nat__227979830
+    };
+  stable nextCommissionId : {var value : Nat};
+  stable nextMessageId : {var value : Nat};
+  stable nextRecordId : {var value : Nat};
+  stable nextUserId : {var value : Nat};
+  stable nextWithdrawalId : {var value : Nat};
+  stable pendingRefunds :
+    {
+      var root : Node__204828119<UserId__158757552, Amount__460182544>;
+      var size : Nat__227979830
+    };
+  stable phoneIndex :
+    {
+      var root : Node__204828119<Text, UserId__158757552>;
+      var size : Nat__227979830
+    };
+  stable promoIndex :
+    {
+      var root : Node__204828119<Text, UserId__158757552>;
+      var size : Nat__227979830
+    };
+  stable rechargeRequests :
+    {
+      var root : Node__204828119<UserId__158757552, Amount__460182544>;
+      var size : Nat__227979830
+    };
+  stable sessions :
+    {
+      var root : Node__204828119<Principal, UserId__158757552>;
+      var size : Nat__227979830
+    };
+  stable taskRecords :
+    {
+      var root : Node__204828119<Nat, TaskRecord__266921937>;
+      var size : Nat__227979830
+    };
+  stable vipConfigs :
+    {
+      var root : Node__204828119<VipLevel__179786454, VipConfig__909150664>;
+      var size : Nat__227979830
+    };
+  stable withdrawals :
+    {
+      var root : Node__204828119<Nat, WithdrawalRequest__770676552>;
+      var size : Nat__227979830
+    }
+};

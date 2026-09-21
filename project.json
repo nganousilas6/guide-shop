@@ -1,0 +1,23 @@
+{
+  "overview": "Guide Shop is a French mobile-first VIP task and commission platform where members complete daily product tasks, earn commissions, request recharges and withdrawals, and chat with customer service, all managed by an admin console.",
+  "features": [
+    "Phone and password sign-in with promo-code signup",
+    "Five tabs: Accueil, Enregistrements, Démarrage, Service, Compte",
+    "Daily task flow with VIP levels, quotas and commissions",
+    "Admin-controlled recharge requests and manual crediting",
+    "Withdrawals with secondary password and 2000 FCFA minimum",
+    "Customer service chat with photo, video and file attachments",
+    "Admin console for accounts, withdrawals, VIP settings, tasks and inbox",
+    "French and English language switcher"
+  ],
+  "category": "productivity",
+  "tags": [
+    "task-platform",
+    "commissions",
+    "vip",
+    "admin-console",
+    "french",
+    "mobile-first"
+  ],
+  "last_updated": "2026-09-21T06:06:48.053Z"
+}

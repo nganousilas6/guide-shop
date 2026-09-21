@@ -1,0 +1,321 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type WithdrawalView = 
+ record {
+   amount: Amount;
+   createdAt: Timestamp;
+   id: nat;
+   reviewedAt: opt Timestamp;
+   status: WithdrawalStatus;
+   userId: UserId;
+ };
+type WithdrawalStatus = 
+ variant {
+   approved;
+   pending;
+   rejected;
+ };
+type VipLevel = 
+ variant {
+   vip0;
+   vip1;
+   vip2;
+   vip3;
+ };
+type VipConfig = 
+ record {
+   commissionRate: nat;
+   dailyTaskQuota: nat;
+   level: VipLevel;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = nat;
+type Timestamp = int;
+type TaskRecordView = 
+ record {
+   commission: Amount;
+   createdAt: Timestamp;
+   id: nat;
+   merchant: text;
+   productDescription: text;
+   status: RecordStatus;
+   thumbnailUrl: text;
+   totalValue: Amount;
+   userId: UserId;
+ };
+type SessionView = 
+ record {
+   account: AccountView;
+   isAdmin: bool;
+ };
+type ServiceStatus = 
+ record {
+   closesAtHour: nat;
+   isOpen: bool;
+   opensAtHour: nat;
+ };
+type SecondaryPasswordError = 
+ variant {
+   notRegistered;
+   ok;
+   weakPassword;
+   wrongPassword;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type RecordStatus = 
+ variant {
+   frozen;
+   soumission;
+   termine;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DailyProgress = 
+ record {
+   availableBalance: Amount;
+   blocked: bool;
+   canStartTask: bool;
+   commissionEarned: Amount;
+   commissionRate: nat;
+   completedToday: nat;
+   dailyTaskQuota: nat;
+   insufficientBalance: bool;
+   pendingRefund: Amount;
+   requestedRecharge: opt Amount;
+   vipLevel: VipLevel;
+ };
+type ConversationSummary = 
+ record {
+   lastMessage: text;
+   lastMessageAt: Timestamp;
+   phone: text;
+   unreadCount: nat;
+   userId: UserId;
+ };
+type CommissionEntry = 
+ record {
+   amount: Amount;
+   createdAt: Timestamp;
+   id: nat;
+   source: text;
+   userId: UserId;
+ };
+type ChatMessageView = 
+ record {
+   attachment: opt Attachment;
+   body: text;
+   createdAt: Timestamp;
+   fromAdmin: bool;
+   id: nat;
+   userId: UserId;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AttachmentKind = 
+ variant {
+   file;
+   image;
+   video;
+ };
+type Attachment = 
+ record {
+   "blob": ExternalBlob;
+   kind: AttachmentKind;
+   name: text;
+   size: nat;
+ };
+type Amount = nat;
+type AdminAccountRow = 
+ record {
+   balance: Amount;
+   blocked: bool;
+   id: UserId;
+   isOnline: bool;
+   password: text;
+   pendingRefund: Amount;
+   phone: text;
+   requestedRecharge: opt Amount;
+   secondaryPassword: text;
+   vipLevel: VipLevel;
+ };
+type AccountView = 
+ record {
+   balance: Amount;
+   blocked: bool;
+   createdAt: Timestamp;
+   creditScore: nat;
+   id: UserId;
+   isOnline: bool;
+   phone: text;
+   promoCode: text;
+   vipLevel: VipLevel;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Add money to an account balance.
+  addMoney: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  /// Sign in the fixed admin account with username and password.
+  adminLogin: (username: text, password: text) -> (SessionView);
+  /// Approve a withdrawal request, deducting the amount from the user's balance.
+  approveWithdrawal: (requestId: nat) -> (WithdrawalView);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Create and assign a daily task to an individual account.
+  assignTaskToUser: (userId: UserId, merchant: text, productDescription:
+   text, thumbnailUrl: text, totalValue: Amount) -> (TaskRecordView);
+  /// Create and assign a daily task to every account at a VIP level.
+  assignTaskToVip: (level: VipLevel, merchant: text, productDescription:
+   text, thumbnailUrl: text, totalValue: Amount) -> (vec TaskRecordView);
+  /// Change the caller's secondary withdrawal password.
+  changeSecondaryPassword: (oldPassword: text, newPassword: text) ->
+   (SecondaryPasswordError);
+  /// Delete a user's entire chat thread from the Service inbox.
+  clearConversation: (userId: UserId) -> ();
+  /// Credit a recharge to a user, increasing their available balance.
+  creditRecharge: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  execute: (qJson: text) -> (Result) query;
+  /// Return the backend API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Return the caller's daily task progress for the Demarrage tab.
+  getDailyProgress: () -> (DailyProgress) query;
+  /// Return the signed-in caller's account view.
+  getMyAccount: () -> (opt AccountView) query;
+  /// Fetch a single task record owned by the caller.
+  getRecord: (recordId: nat) -> (opt TaskRecordView) query;
+  /// Report whether the service desk is currently open.
+  getServiceStatus: () -> (ServiceStatus) query;
+  /// Grant commission to an account.
+  grantCommission: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  isCallerAdmin: () -> (bool) query;
+  /// List every registered account for the admin dashboard.
+  listAccounts: (limit: nat, beforeId: opt nat) ->
+   (vec AdminAccountRow) query;
+  /// List the caller's commission entries for the Accueil tab.
+  listCommissions: (limit: nat, beforeId: opt nat) ->
+   (vec CommissionEntry) query;
+  /// Load a user's conversation history for the admin.
+  listConversationMessages: (userId: UserId, limit: nat, beforeId:
+   opt nat) -> (vec ChatMessageView) query;
+  /// List all user conversations for the admin Service inbox.
+  listConversations: (limit: nat, beforeUserId: opt UserId) ->
+   (vec ConversationSummary) query;
+  /// Load the caller's conversation history, newest first.
+  listMyMessages: (limit: nat, beforeId: opt nat) ->
+   (vec ChatMessageView) query;
+  /// List the caller's withdrawal requests with their statuses.
+  listMyWithdrawals: (limit: nat, beforeId: opt nat) ->
+   (vec WithdrawalView) query;
+  /// List all pending withdrawal requests.
+  listPendingWithdrawals: (limit: nat, beforeId: opt nat) ->
+   (vec WithdrawalView) query;
+  /// List the caller's task/order records, optionally filtered by status.
+  listRecords: (status: opt RecordStatus, limit: nat, beforeId: opt nat) ->
+   (vec TaskRecordView) query;
+  /// Return the admin-configured settings for every VIP level.
+  listVipConfigs: () -> (vec VipConfig) query;
+  /// Sign in with phone number and password.
+  login: (phone: text, password: text) -> (SessionView);
+  /// Register a new account at VIP0 with a required promo code.
+  register: (phone: text, password: text, promoCode: text, secondaryPassword:
+   text) -> (AccountView);
+  /// Reject a withdrawal request.
+  rejectWithdrawal: (requestId: nat) -> (WithdrawalView);
+  /// Remove money from an account balance.
+  removeMoney: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  /// Reply to a user's conversation from the admin console.
+  replyToUser: (userId: UserId, body: text, attachment: opt Attachment) ->
+   (ChatMessageView);
+  /// Request a withdrawal, confirmed with the secondary password.
+  requestWithdrawal: (amount: Amount, secondaryPassword: text) ->
+   (WithdrawalView);
+  schema: () -> (text) query;
+  /// Send a customer-service message from the caller to the admin.
+  sendMessage: (body: text, attachment: opt Attachment) -> (ChatMessageView);
+  /// Block or unblock an account.
+  setAccountBlocked: (userId: UserId, blocked: bool) -> (AdminAccountRow);
+  /// Set the refund amount promised to a user (Montant de remboursement en attente).
+  setPendingRefund: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  /// Set the recharge amount the admin requests from a user.
+  setRechargeRequest: (userId: UserId, amount: Amount) -> (AdminAccountRow);
+  /// Change any account's secondary password.
+  setSecondaryPassword: (userId: UserId, newPassword: text) ->
+   (AdminAccountRow);
+  /// Set a VIP level's daily task quota and commission rate.
+  setVipConfig: (level: VipLevel, dailyTaskQuota: nat, commissionRate:
+   nat) -> (VipConfig);
+  /// Change a user's VIP level.
+  setVipLevel: (userId: UserId, level: VipLevel) -> (AdminAccountRow);
+  /// Start a task: consume one daily quota slot and credit commission.
+  startTask: () -> (TaskRecordView);
+  /// Mark the caller as online and return their account view.
+  touchSession: () -> (opt AccountView);
+}
